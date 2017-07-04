@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shukla.umang.domain.Item;
 import com.shukla.umang.repository.ItemRepository;
+import com.shukla.umang.exception.ResourceNotFoundException;
 
 import com.wordnik.swagger.annotations.Api;
 
@@ -25,8 +26,20 @@ public class ItemController {
 
     @RequestMapping(value="/items/{itemId}", method=RequestMethod.GET)
     public ResponseEntity<?> getItem(@PathVariable Long itemId) {
-        Item p = itemRepository.findOne(itemId);
-        return new ResponseEntity<> (p, HttpStatus.OK);
+        Item item = verifyItem(itemId);
+        return new ResponseEntity<> (item, HttpStatus.OK);
+    }
+
+    /**
+     * @param itemId Check if itemId exists
+     * @throws ResourceNotFoundException Custom exception which sends return code as 404 with message
+     */
+    protected Item verifyItem(Long itemId) throws ResourceNotFoundException {
+        Item item = itemRepository.findOne(itemId);
+        if(item == null) {
+            throw new ResourceNotFoundException("Item with id " + itemId + " not found");
+        }
+        return item;
     }
 
 }
