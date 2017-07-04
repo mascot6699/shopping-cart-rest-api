@@ -14,14 +14,9 @@ Functionality to be given
 * Java 1.8
 * Maven 3
 * MySQL
-* Spring Boot
-* Spring Data
-* Spring Security
-* Hibernate
 
 ## *Build Project*
 * Run `mvn package`
-
 
 
 ## *Run Project*
