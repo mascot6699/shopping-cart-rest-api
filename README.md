@@ -16,6 +16,7 @@ Functionality to be given
 * MySQL
 
 ## *Build Project*
+* Open mysql cli with root priviledge and then execute `source initializeDatabase`
 * Run `mvn package`
 
 
