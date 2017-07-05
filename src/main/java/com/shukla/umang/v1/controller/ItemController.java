@@ -13,7 +13,9 @@ import com.shukla.umang.domain.Item;
 import com.shukla.umang.repository.ItemRepository;
 import com.shukla.umang.exception.ResourceNotFoundException;
 
-import com.wordnik.swagger.annotations.Api;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 
 @RestController("itemControllerV1")
@@ -25,7 +27,8 @@ public class ItemController {
     private ItemRepository itemRepository;
 
     @RequestMapping(value="/items/{itemId}", method=RequestMethod.GET)
-    public ResponseEntity<?> getItem(@PathVariable Long itemId) {
+    @ApiOperation(value = "Get details of particular item")
+    public ResponseEntity<?> getItem(@ApiParam @PathVariable Long itemId) {
         Item item = verifyItem(itemId);
         return new ResponseEntity<> (item, HttpStatus.OK);
     }

@@ -22,4 +22,4 @@ Functionality to be given
 
 ## *Run Project*
 * Execute `mvn spring-boot:run` or * `java -jar target/shopping-cart-rest-api-0.0.1-SNAPSHOT.jar`
-* Navigate to `http://localhost:8080/` for instructions.
+* Navigate to `http://localhost:8080/swagger-ui.html` for testing apis.
