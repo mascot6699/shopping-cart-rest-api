@@ -1,4 +1,4 @@
-package com.shukla.umang;
+package com.shukla.umang.config;
 
 import javax.inject.Inject;
 
@@ -24,6 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Inject
     private UserDetailsService userDetailsService;
 
+    /**
+     * Encrypting password with Bcrypt.
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
@@ -39,15 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Order(Ordered.HIGHEST_PRECEDENCE)
     protected void configure(HttpSecurity http) throws Exception {
         http
-        .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
         .authorizeRequests()
             .antMatchers("/" , "/swagger-ui/**", "/api-docs/**").permitAll()
-            .antMatchers("/v1/**").authenticated()
-            .and()
-        .csrf()
-            .disable();
+            .antMatchers("/v1/**").authenticated();
     }
 
     @Override

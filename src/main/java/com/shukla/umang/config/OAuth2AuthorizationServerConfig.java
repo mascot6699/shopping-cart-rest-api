@@ -1,20 +1,21 @@
-package com.shukla.umang;
+package com.shukla.umang.config;
 
 import javax.inject.Inject;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 
 
 /**
- * Spring Security’s sensible defaults will create an in-memory token store for
- * this authorization server to use which will be responsible for managing client details,
- * verifying a resource owner’s authorization, and generating tokens such as authorization
- * code, access, and refresh tokens
+ * Configures the authorization server.
+ * The @EnableAuthorizationServer annotation is used to configure the OAuth 2.0 Authorization Server
+ * mechanism, together with any @Beans that implement AuthorizationServerConfigurer
+ * (there is a handy adapter implementation with empty methods).
  *
  */
 @Configuration
@@ -24,6 +25,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Inject
     private AuthenticationManager authenticationManager;
 
+    // The AuthorizationServerEndpointsConfigurer defines the authorization and token endpoints and the token services.
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(this.authenticationManager);
@@ -36,6 +38,8 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
      * authorization server. Also, we define two generic scope "read" and "write".
      *
      * TODO: Write these more securely. Remove hardcoding.
+     * sample schema could at
+     * https://github.com/spring-projects/spring-security-oauth/blob/master/spring-security-oauth2/src/test/resources/schema.sql
      *
      */
     @Override
@@ -46,6 +50,15 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
                 .secret("top_secret")
                 .authorizedGrantTypes("password")
                 .scopes("read", "write")
-                .resourceIds("shopping_cart_rest_api");
+                .resourceIds("oauth2-resource");
+    }
+
+    /**
+     * We here defines the security constraints on the token endpoint.
+     * We set it up to isAuthenticated, which returns true if the user is not anonymous.
+     */
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        security.checkTokenAccess("isAuthenticated()");
     }
 }

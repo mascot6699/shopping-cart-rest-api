@@ -1,4 +1,4 @@
-package com.shukla.umang;
+package com.shukla.umang.config;
 
 import java.util.List;
 
