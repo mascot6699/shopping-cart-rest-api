@@ -33,4 +33,22 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(errorDetail, null, HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Override to return ErrorDetail object when HttpMessageNotReadableException occurs
+     */
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(
+            HttpMessageNotReadableException ex, HttpHeaders headers,
+            HttpStatus status, WebRequest request) {
+
+        ErrorDetail errorDetail = new ErrorDetail();
+        errorDetail.setTimeStamp(new Date().getTime());
+        errorDetail.setStatus(status.value());
+        errorDetail.setTitle("Message Not Readable");
+        errorDetail.setDetail(ex.getMessage());
+        errorDetail.setDeveloperMessage(ex.getClass().getName());
+
+        return handleExceptionInternal(ex, errorDetail, headers, status, request);
+    }
+
 }
