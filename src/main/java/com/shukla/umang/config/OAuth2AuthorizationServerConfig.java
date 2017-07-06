@@ -48,17 +48,8 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
             .inMemory()
                 .withClient("rest_api_client_normal_user")
                 .secret("top_secret")
-                .authorizedGrantTypes("password")
+                .authorizedGrantTypes("password", "refresh_token")
                 .scopes("read", "write")
-                .resourceIds("oauth2-resource");
-    }
-
-    /**
-     * We here defines the security constraints on the token endpoint.
-     * We set it up to isAuthenticated, which returns true if the user is not anonymous.
-     */
-    @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.checkTokenAccess("isAuthenticated()");
+                .resourceIds("resource");
     }
 }
