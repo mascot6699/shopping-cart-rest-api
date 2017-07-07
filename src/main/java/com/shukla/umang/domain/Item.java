@@ -1,6 +1,8 @@
 package com.shukla.umang.domain;
 
 import javax.persistence.*;
+
+import com.shukla.umang.domain.enums.ItemRating;
 import org.hibernate.validator.constraints.NotEmpty;
 
 
@@ -24,21 +26,23 @@ public class Item {
     @Column(name="DESCRIPTION")
     private String description;
 
-    @Column(name = "QUANTITY")
+    @Column(name = "RATING")
+    @Enumerated(EnumType.STRING)
     @NotEmpty
-    private Integer quantity;
+    private ItemRating rating;
 
     @Column(name = "PRICE")
     @NotEmpty
     private Double price;
 
-    public Item(){
-
+    public Item() {
+        this.rating = ItemRating.NO_RATING;
     }
 
-    public Item(Double price, Integer quantity, String description, String name) {
+    public Item(Double price, ItemRating rating, String description, String name) {
+        this();
         this.price = price;
-        this.quantity = quantity;
+        this.rating = rating;
         this.description = description;
         this.name = name;
     }
@@ -63,8 +67,8 @@ public class Item {
         return price;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public ItemRating getRating() {
+        return rating;
     }
 
     /**
@@ -87,8 +91,8 @@ public class Item {
         this.price = price;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setRating(ItemRating rating) {
+        this.rating = rating;
     }
 
     @Override

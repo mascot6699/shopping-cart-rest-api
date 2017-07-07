@@ -32,8 +32,9 @@ public class CustomUserDetails implements UserDetails {
      */
     private Collection<? extends GrantedAuthority> translate(boolean isAdmin) {
         List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         if(isAdmin) {
-            authorities = AuthorityUtils.createAuthorityList("ROLE_ADMIN");
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
         return authorities;
     }

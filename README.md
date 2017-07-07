@@ -3,10 +3,10 @@
 ## *Overview*
 
 Functionality to be given
-* [ ] As admin, I want to create user so that I can register new user
+* [X] As admin, I want to create user so that I can register new user
 * [ ] As admin, I want to create/edit/delete items so that I can make sure user always get the latest item information
-* [ ] As admin, I want to read (view) items so that I can check if item information is up to date
-* [ ] As user, I want to read (view) items so that I see if something is interesting to buy
+* [X] As admin, I want to read (view) items so that I can check if item information is up to date
+* [X] As user, I want to read (view) items so that I see if something is interesting to buy
 * [ ] As user, I want to create booking so that I can buy the item
 * [ ] As user, I want to read (view) booking so that I know items that I have been buy.
 
@@ -21,7 +21,7 @@ Functionality to be given
 
 
 ## *Run Project*
-* Execute `mvn spring-boot:run` or * `java -jar target/shopping-cart-rest-api-0.0.1-SNAPSHOT.jar`
+* Execute `mvn spring-boot:run` or `java -jar target/shopping-cart-rest-api-0.0.1-SNAPSHOT.jar`
 * Navigate to `http://localhost:8080/swagger-ui.html` for testing apis.
 
 
