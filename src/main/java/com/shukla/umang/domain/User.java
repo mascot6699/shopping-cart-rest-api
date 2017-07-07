@@ -12,8 +12,9 @@ import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import com.shukla.umang.dto.request.CreateUserRequest;
 
 
 /**
@@ -27,7 +28,6 @@ public class User {
     @Id
     @GeneratedValue
     @Column(name="USER_ID")
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
     @NotEmpty
@@ -36,7 +36,6 @@ public class User {
 
     @Column(name="PASSWORD")
     @NotEmpty
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name="FIRST_NAME")
@@ -56,6 +55,15 @@ public class User {
 
     @UpdateTimestamp
     private Date modified;
+
+    public User() {
+    }
+
+    public User(CreateUserRequest createUserRequest) {
+        this.username = createUserRequest.getUsername();
+        this.firstName = createUserRequest.getFirstName();
+        this.lastName = createUserRequest.getLastName();
+    }
 
     /**
      * Getters for User class.
@@ -89,24 +97,8 @@ public class User {
      * Setters for user class.
      */
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public void setAdmin(boolean admin) {
@@ -115,7 +107,7 @@ public class User {
 
     @Override
     public String toString() {
-        return getId() + ", " + getUsername() + ", " + getFirstName() + ", " + getLastName();
+        return getUsername();
     }
 
 }

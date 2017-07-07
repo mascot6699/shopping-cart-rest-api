@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.shukla.umang.repository.UserRepository;
 import com.shukla.umang.config.CustomUserDetails;
-import com.shukla.umang.service.UserService;
+import com.shukla.umang.service.Impl.UserServiceImpl;
 
 @SpringBootApplication
 public class ShoppingCartRestApi {
@@ -24,7 +24,7 @@ public class ShoppingCartRestApi {
 
     @Autowired
     public void authenticationManager(AuthenticationManagerBuilder builder,
-        UserRepository repository, UserService service) throws Exception {
+        UserRepository repository, UserServiceImpl service) throws Exception {
         builder.userDetailsService(userDetailsService(repository)).passwordEncoder(passwordEncoder);
     }
 

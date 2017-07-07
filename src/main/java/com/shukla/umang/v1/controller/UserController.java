@@ -11,29 +11,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shukla.umang.domain.User;
-import com.shukla.umang.service.UserService;
+import com.shukla.umang.dto.request.CreateUserRequest;
+import com.shukla.umang.service.Impl.UserServiceImpl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 
-
+/**
+ * All apis endpoints related to user stay here.
+ */
 @RestController("userControllerV1")
 @RequestMapping("/v1/")
-@Api(value = "user", description = "User API")
+@Api(value = "user", description = "User API", protocols = "http")
 public class UserController {
 
     @Inject
-    private UserService service;
+    private UserServiceImpl service;
 
     @RequestMapping(value="/user", method=RequestMethod.POST)
     @ApiOperation(value = "create a new user", notes="Performed only by admin user", response = Void.class)
-    public ResponseEntity<Void> createUser(@Valid @RequestBody User user) {
-        user.setAdmin(false);
-        service.save(user);
+    public ResponseEntity<Void> createUser(@Valid @RequestBody CreateUserRequest createUserRequest) {
+        service.saveNormalUser(createUserRequest);
         // Since get user is not allowed not sending id of created user.
         return new ResponseEntity<> (null, HttpStatus.CREATED);
     }

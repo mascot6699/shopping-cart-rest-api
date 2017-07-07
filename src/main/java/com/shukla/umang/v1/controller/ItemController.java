@@ -23,6 +23,9 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 
+/**
+ * All apis endpoints related to items stay here.
+ */
 @RestController("itemControllerV1")
 @RequestMapping("/v1/")
 @Api(value = "items", description = "Item API")
@@ -40,8 +43,10 @@ public class ItemController {
 
     @RequestMapping(value="/items/{itemId}", method=RequestMethod.GET)
     @ApiOperation(value = "Get details of particular item", response=Item.class)
-    @ApiResponses(value = {@ApiResponse(code=200, message="", response=Item.class),
-            @ApiResponse(code=404, message="Item with id not found", response=ErrorDetail.class)})
+    @ApiResponses(value = {
+            @ApiResponse(code=200, message="", response=Item.class),
+            @ApiResponse(code=404, message="Item with id not found", response=ErrorDetail.class)
+    })
     public ResponseEntity<?> getItem(@ApiParam @PathVariable Long itemId) {
         Item item = verifyItem(itemId);
         return new ResponseEntity<> (item, HttpStatus.OK);
