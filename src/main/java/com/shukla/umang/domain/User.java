@@ -10,10 +10,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
@@ -27,15 +28,16 @@ public class User {
     @Id
     @GeneratedValue
     @Column(name="USER_ID")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
-    @Column(name="USERNAME")
     @NotEmpty
+    @Column(unique=true)
     private String username;
 
     @Column(name="PASSWORD")
     @NotEmpty
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name="FIRST_NAME")
@@ -48,7 +50,6 @@ public class User {
 
     @Column(name="ADMIN", columnDefinition="char(3)")
     @Type(type="yes_no")
-    @NotEmpty
     private boolean admin;
 
     @CreationTimestamp

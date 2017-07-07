@@ -1,6 +1,6 @@
 package com.shukla.umang.dto.error;
 
-interface Error {
+public interface Error {
 
     String getCode();
     String getMessage();
