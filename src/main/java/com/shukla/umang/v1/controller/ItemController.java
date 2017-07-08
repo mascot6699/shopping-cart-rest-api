@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.shukla.umang.domain.Item;
 import com.shukla.umang.dto.error.ErrorDetail;
 import com.shukla.umang.repository.ItemRepository;
+import com.shukla.umang.service.Impl.ItemServiceImpl;
 import com.shukla.umang.exception.ResourceNotFoundException;
 
 import io.swagger.annotations.Api;
@@ -39,6 +40,9 @@ public class ItemController {
     @Inject
     private ItemRepository itemRepository;
 
+    @Inject
+    private ItemServiceImpl itemServiceImpl;
+
     @RequestMapping(value="/items", method=RequestMethod.GET)
     @ApiOperation(value = "Retrieves all the items", response=Item.class, responseContainer="List")
     public ResponseEntity<Page<Item>> getAllItems(Pageable pageable) {
@@ -54,7 +58,7 @@ public class ItemController {
             @ApiResponse(code=404, message="Item with id not found", response=ErrorDetail.class)
     })
     public ResponseEntity<?> getItem(@ApiParam @PathVariable Long itemId) {
-        Item item = verifyItem(itemId);
+        Item item = itemServiceImpl.verifyItem(itemId);
         return new ResponseEntity<> (item, HttpStatus.OK);
     }
 
@@ -86,9 +90,7 @@ public class ItemController {
         @ApiResponse(code=404, message="Unable to find Item", response=ErrorDetail.class)
     })
     public ResponseEntity<Void> updateItem(@RequestBody Item item, @PathVariable Long itemId) {
-        verifyItem(itemId);
-        item.setId(itemId);
-        itemRepository.save(item);
+        itemServiceImpl.updateItem(itemId, item);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -100,21 +102,10 @@ public class ItemController {
         @ApiResponse(code=404, message="Unable to find Item", response=ErrorDetail.class)
     })
     public ResponseEntity<Void> deleteItem(@PathVariable Long itemId) {
-        verifyItem(itemId);
-        itemRepository.delete(itemId);
+        itemServiceImpl.deleteItem(itemId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    /**
-     * @param itemId Check if itemId exists
-     * @throws ResourceNotFoundException Custom exception which sends return code as 404 with message
-     */
-    protected Item verifyItem(Long itemId) throws ResourceNotFoundException {
-        Item item = itemRepository.findOne(itemId);
-        if(item == null) {
-            throw new ResourceNotFoundException("Item with id " + itemId + " not found");
-        }
-        return item;
-    }
+
 
 }
