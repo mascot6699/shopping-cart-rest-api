@@ -1,9 +1,11 @@
 package com.shukla.umang.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
 
-import com.shukla.umang.domain.enums.ItemRating;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import java.math.BigDecimal;
 
 
 /**
@@ -26,23 +28,16 @@ public class Item {
     @Column(name="DESCRIPTION")
     private String description;
 
-    @Column(name = "RATING")
-    @Enumerated(EnumType.STRING)
-    @NotEmpty
-    private ItemRating rating;
-
     @Column(name = "PRICE")
-    @NotEmpty
-    private Double price;
+    @DecimalMin("0")
+    private BigDecimal price;
 
     public Item() {
-        this.rating = ItemRating.NO_RATING;
     }
 
-    public Item(Double price, ItemRating rating, String description, String name) {
+    public Item(BigDecimal price, String description, String name) {
         this();
         this.price = price;
-        this.rating = rating;
         this.description = description;
         this.name = name;
     }
@@ -63,12 +58,8 @@ public class Item {
         return description;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
-    }
-
-    public ItemRating getRating() {
-        return rating;
     }
 
     /**
@@ -87,12 +78,8 @@ public class Item {
         this.description = description;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public void setRating(ItemRating rating) {
-        this.rating = rating;
     }
 
     @Override

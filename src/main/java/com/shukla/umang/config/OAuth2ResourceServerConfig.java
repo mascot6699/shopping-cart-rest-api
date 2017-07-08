@@ -41,7 +41,7 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
         .authorizeRequests()
             .antMatchers("/" , "/swagger-ui/**", "/api-docs/**").permitAll()
             .antMatchers(HttpMethod.POST, "/v1/user").hasRole("ADMIN")
-            .antMatchers(HttpMethod.POST, "/v1/items/{\\d+}").hasRole("ADMIN")
+            .antMatchers(HttpMethod.POST, "/v1/items").hasRole("ADMIN")
             .antMatchers(HttpMethod.PUT, "/v1/items/{\\d+}").hasRole("ADMIN")
             .antMatchers(HttpMethod.DELETE, "/v1/items/{\\d+}").hasRole("ADMIN")
             .antMatchers("/v1/**").authenticated();

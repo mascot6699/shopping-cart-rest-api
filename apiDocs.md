@@ -34,3 +34,19 @@ Accessed by normal user and admin user
    "user_name": "normal1"
  }' 'http://localhost:8080/v1/user'`
 
+###### Create new item
+`curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -H "Authorization: Bearer XXX-token-XXX" -d '{ 
+    "name": "product 3",
+    "description": "desc",
+    "price": 1000.00
+  }' 'http://localhost:8080/v1/items'`
+
+###### Update old item
+`curl -X PUT -H "Content-Type: application/json" -H "Accept: application/json" -H "Authorization: Bearer XXX-token-XXX" -d '{ 
+     "name": "product new 2",
+     "description": "desc new 2",
+     "price": 500.00
+   }' 'http://localhost:8080/v1/items/2'`
+
+###### Delete an item
+`curl -X DELETE -H "Authorization: Bearer XXX-token-XXX" 'http://localhost:8080/v1/items'`
