@@ -2,9 +2,11 @@ package com.shukla.umang.service.Impl;
 
 import java.security.Principal;
 
+import com.shukla.umang.config.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -41,9 +43,9 @@ public class UserServiceImpl implements UserService {
     }
 
     public Long getLoggedInUserId(Principal principal) {
-        User activeUser = (User) ((Authentication) principal).getPrincipal();
+        CustomUserDetails activeUser = (CustomUserDetails) ((Authentication) principal).getPrincipal();
         if (activeUser != null) {
-            return activeUser.getId();
+            return activeUser.getRealUserId();
         }
         return null;
     }

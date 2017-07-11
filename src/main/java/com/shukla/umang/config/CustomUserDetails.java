@@ -16,10 +16,12 @@ import java.util.List;
 public class CustomUserDetails implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
+    private Long realUserId;
     private String password;
     private String username;
 
     public CustomUserDetails(User user) {
+        this.realUserId = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.authorities = translate(user.isAdmin());
@@ -42,6 +44,10 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
+    }
+
+    public Long getRealUserId() {
+        return realUserId;
     }
 
     @Override

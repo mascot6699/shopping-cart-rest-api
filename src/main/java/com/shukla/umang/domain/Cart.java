@@ -13,13 +13,14 @@ import java.util.Map;
 public class Cart {
 
     @Id
-    private String cartId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long cartId;
 
-    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name="cart_id")
     private Map<Long, CartItem> cartItems;
 
-    @OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
+    @OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -34,6 +35,7 @@ public class Cart {
 
     public Cart(User user) {
         this();
+        //this.cartId = cartId;
         this.user = user;
     }
 
@@ -73,7 +75,7 @@ public class Cart {
         }
     }
 
-    public String getCartId() {
+    public Long getCartId() {
         return cartId;
     }
 
@@ -81,7 +83,7 @@ public class Cart {
         return user;
     }
 
-    public void setCartId(String cartId) {
+    public void setCartId(Long cartId) {
         this.cartId = cartId;
     }
 

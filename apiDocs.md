@@ -49,4 +49,11 @@ Accessed by normal user and admin user
    }' 'http://localhost:8080/v1/items/2'`
 
 ###### Delete an item
-`curl -X DELETE -H "Authorization: Bearer XXX-token-XXX" 'http://localhost:8080/v1/items'`
+`curl -X DELETE -H "Authorization: Bearer XXX-token-XXX" 'http://localhost:8080/v1/items/2'`
+
+###### Add an item to shopping cart
+`curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -H "Authorization: Bearer XXX-token-XXX" -d '{ 
+     "item_id": "1",
+     "quantity": "2"
+ }' 'http://localhost:8080/v1/addToCart'`
+
