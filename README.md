@@ -19,10 +19,13 @@ Functionality to be given
 * Open mysql cli with root priviledge and then execute `source initializeDatabase`
 * Run `mvn package`
 
-
 ## *Run Project*
 * Execute `mvn spring-boot:run` or `java -jar target/shopping-cart-rest-api-0.0.1-SNAPSHOT.jar`
 * Navigate to `http://localhost:8080/swagger-ui.html` for testing apis.
+
+## *Running Tests*
+* To run all tests `mvn test`
+* To run test in specific file `mvn -Dtest=ItemControllerTest test`
 
 
 ## *[Api Documentation](apiDocs.md)*
