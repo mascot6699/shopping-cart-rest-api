@@ -57,4 +57,17 @@ public class CartController {
         return new ResponseEntity<> (cart, HttpStatus.OK);
     }
 
+
+    @RequestMapping(path="/showCart", method=RequestMethod.GET)
+    @ApiOperation(value="Shows cart contents of a user", response=Cart.class)
+    @ApiResponses({
+        @ApiResponse(code=200, message="Fetched Cart Data Successfully", response=Cart.class),
+        @ApiResponse(code=404, message="No cart present for user.", response=ErrorDetail.class),
+        @ApiResponse(code=500, message="An internal server error occurred", response=ErrorDetail.class)
+    })
+    public ResponseEntity<Cart> showCart(Principal principal) {
+        Long userID = userServiceImpl.getLoggedInUserId(principal);
+        Cart cart = cartServiceImpl.showCart(userID);
+        return new ResponseEntity<> (cart, HttpStatus.OK);
+    }
 }

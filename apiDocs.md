@@ -56,4 +56,6 @@ Accessed by normal user and admin user
      "item_id": "1",
      "quantity": "2"
  }' 'http://localhost:8080/v1/addToCart'`
-
+ 
+###### View shopping cart to know what is there
+`curl -X GET  -H "Authorization: Bearer XXX-token-XXX" 'http://localhost:8080/v1/showCart'`

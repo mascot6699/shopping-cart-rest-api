@@ -8,7 +8,7 @@ Functionality to be given
 * [X] As admin, I want to read (view) items so that I can check if item information is up to date
 * [X] As user, I want to read (view) items so that I see if something is interesting to buy
 * [X] As user, I want to create booking so that I can buy the item
-* [ ] As user, I want to read (view) booking so that I know items that I have been buy.
+* [X] As user, I want to read (view) booking so that I know items that I have been buy.
 
 ## *Prerequisites*
 * Java 1.8

@@ -49,5 +49,13 @@ public class CartServiceImpl implements CartService {
         return cart;
     }
 
+    public Cart showCart(Long userId) {
+        Cart cart = cartRepository.findByUserId(userId);
+        if (cart == null) {
+            throw new ResourceNotFoundException("No cart present for user.");
+        }
+        return cart;
+    }
+
 
 }
